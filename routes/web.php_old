@@ -1,0 +1,32 @@
+<?php
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SolicitacaoAgendamentoController;
+use App\Http\Controllers\UsuarioController; // NOVO
+
+Route::get('/', function () {
+    return view('malu_agendamentos');
+});
+
+Route::post('/agendamentos', [SolicitacaoAgendamentoController::class, 'store'])
+    ->name('agendamentos.store');
+
+// NOVO: cadastro do usuário (seção no topo da página)
+Route::post('/cadastro', [UsuarioController::class, 'store'])
+    ->name('usuarios.store');
+
+    // NOVO: exibe a página de cadastro
+Route::get('/cadastro', function () {
+    return view('cadastro');
+})->name('cadastro.create');
+
+// Já existe: registra o cadastro
+Route::post('/cadastro', [UsuarioController::class, 'store'])
+    ->name('usuarios.store');
+
+    Route::get('/', function () {
+    return view('malu_agendamentos');
+})->name('home');
+
+use App\Http\Controllers\AgendamentoController;
+
+Route::post('/agendamentos', [AgendamentoController::class, 'store'])->name('agendamentos.store')
